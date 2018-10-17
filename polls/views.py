@@ -24,10 +24,14 @@ def index(request):
 	#return HttpResponse("Hello, world. You're at the polls index.")
 
 def detail(request, question_id):
-	try:
-		question = Question.objects.get(pk=question_id)
-	except Question.DoesNotExist:
-		raise Http404("Question does not exist")
+	question = get_object_or_404(Question, pk=question_id)
+	
+	# Sem a shortcut get_object_or_404
+	#try:
+	#	question = Question.objects.get(pk=question_id)
+	#except Question.DoesNotExist:
+	#	raise Http404("Question does not exist")
+
 	return render(request, 'polls/detail.html', {'question': question})
 
 	#return HttpResponse("You're looking at question %s" % question_id)
